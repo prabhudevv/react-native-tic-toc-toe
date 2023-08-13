@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, TextInput, TouchableOpacity, Text, View, Image } from 'react-native';
 import { lightMode, darkMode } from './Colors';
+import Ionicons from 'react-native-vector-icons/dist/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 
 const HomeScreen = ({ navigation }) => {
   const [player1, setPlayer1] = useState('');
   const [player2, setPlayer2] = useState('');
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const handleStartGame = () => {
     navigation.navigate('Game', {
@@ -16,11 +19,11 @@ const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.header}>
-        <TouchableOpacity>
-          <Image source={require('../assets/images/mode.png')} style={styles.headIcon} />
+        <TouchableOpacity onPress={() => setIsDarkMode(!isDarkMode)}>
+          <MaterialIcons name="dark-mode" size={30} color={darkMode.primary} style={styles.headIcon}/>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Image source={require('../assets/images/settings.png')} style={styles.headIcon} />
+          <Ionicons name="settings-sharp" size={30} color={darkMode.primary} style={styles.headIcon}/>
         </TouchableOpacity>
       </View>
       <View>
@@ -32,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
           onChangeText={setPlayer1}
           value={player1}
           placeholder="Enter player 1 name"
-          placeholderTextColor={lightMode.phColor}
+          placeholderTextColor={isDarkMode ? darkMode.phColor : lightMode.phColor}
           maxLength={10}
         />
         <TextInput
@@ -40,11 +43,11 @@ const HomeScreen = ({ navigation }) => {
           onChangeText={setPlayer2}
           value={player2}
           placeholder="Enter player 2 name"
-          placeholderTextColor={lightMode.phColor}
+          placeholderTextColor={isDarkMode ? darkMode.phColor : lightMode.phColor}
           maxLength={10}
         />
       </View>
-      <View style={{ ...styles.inputs, backgroundColor: lightMode.primary }}>
+      <View style={{ ...styles.inputs, backgroundColor: isDarkMode? darkMode.primary : lightMode.primary }}>
         <TouchableOpacity
           title="Start"
           onPress={handleStartGame}

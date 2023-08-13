@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Modal from "react-native-modal";
-import { StyleSheet, TouchableOpacity, Text, View, Image, FlatList } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, Image, FlatList, Vibration } from 'react-native';
 import { lightMode, darkMode } from './Colors';
+import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 
 const GameScreen = ({ route, navigation }) => {
   const { player1, player2 } = route.params;
@@ -43,7 +45,8 @@ const GameScreen = ({ route, navigation }) => {
   const Cell = ({ onPress, value, isDis, checkedByVal }) => {
     return (
       <TouchableOpacity style={[styles.cell, isDis && styles.checked]} onPress={onPress} disabled={isDis}>
-        {isDis ? (checkedByVal === 'Player1' ? <Image source={require('../assets/images/cross.png')} style={styles.cross} /> : <Image source={require('../assets/images/x.png')} style={styles.cross} />) : null}
+        {isDis ? (checkedByVal === 'Player1' ? (<Text style={styles.cross}>X</Text>) : <Text style={styles.cross}>O</Text>) : null}
+        {/* {isDis ? (checkedByVal === 'Player1' ? <Image source={require('../assets/images/cross.png')} style={styles.cross} /> : <Image source={require('../assets/images/x.png')} style={styles.cross} />) : null} */}
       </TouchableOpacity>
     );
   };
@@ -126,16 +129,16 @@ const GameScreen = ({ route, navigation }) => {
     <View style={styles.main}>
       <View style={styles.header}>
         <TouchableOpacity onPress={mainMenu}>
-          <Image source={require('../assets/images/home.png')} style={styles.headerIcon} />
+          <Ionicons name="home" size={30} color={darkMode.primary} style={styles.headIcon}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={onClear}>
-          <Image source={require('../assets/images/reset.png')} style={styles.headerIcon} />
+          <MaterialIcons name="restart-alt" size={30} color={darkMode.primary} style={styles.headIcon}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={onClear}>
-          <Image source={require('../assets/images/mode.png')} style={styles.headerIcon} />
+          <MaterialIcons name="dark-mode" size={30} color={darkMode.primary} style={styles.headIcon}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={onClear}>
-          <Image source={require('../assets/images/settings.png')} style={styles.headerIcon} />
+          <Ionicons name="settings-sharp" size={30} color={darkMode.primary} style={styles.headIcon}/>
         </TouchableOpacity>
       </View>
       <View style={styles.nameSection}>
@@ -234,8 +237,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   cross: {
-    height: 100,
-    width: 100
+    color: lightMode.bgColor,
+    fontSize: 80
   },
   modal: {
     height: 300,
@@ -249,7 +252,13 @@ const styles = StyleSheet.create({
   modalText: {
     color: lightMode.fgCOlor,
     fontSize: 22
-  }
+  },
+  headIcon: {
+    width: 30,
+    height: 30,
+    marginTop: 10,
+    marginLeft: 10,
+  },
 });
 
 export default GameScreen;
