@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, TextInput, TouchableOpacity, Text, View, Imag
 import { lightMode, darkMode } from './Colors';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const HomeScreen = ({ navigation }) => {
   const [player1, setPlayer1] = useState('');
@@ -20,34 +21,40 @@ const HomeScreen = ({ navigation }) => {
     <SafeAreaView style={styles.main}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => setIsDarkMode(!isDarkMode)}>
-          <MaterialIcons name="dark-mode" size={30} color={darkMode.primary} style={styles.headIcon}/>
+          <MaterialIcons name="dark-mode" size={30} color={darkMode.primary} style={styles.headIcon} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Ionicons name="settings-sharp" size={30} color={darkMode.primary} style={styles.headIcon}/>
+          <Ionicons name="settings-sharp" size={30} color={darkMode.primary} style={styles.headIcon} />
         </TouchableOpacity>
       </View>
       <View>
         <Text style={styles.gameName}>TIC TAC TOE</Text>
       </View>
       <View style={styles.players}>
-        <TextInput
-          style={{ ...styles.inputs, borderWidth: 2 }}
-          onChangeText={setPlayer1}
-          value={player1}
-          placeholder="Enter player 1 name"
-          placeholderTextColor={isDarkMode ? darkMode.phColor : lightMode.phColor}
-          maxLength={10}
-        />
-        <TextInput
-          style={{ ...styles.inputs, borderWidth: 2 }}
-          onChangeText={setPlayer2}
-          value={player2}
-          placeholder="Enter player 2 name"
-          placeholderTextColor={isDarkMode ? darkMode.phColor : lightMode.phColor}
-          maxLength={10}
-        />
+        <View style={styles.playerName}>
+          <FontAwesome name="close" size={30} color={darkMode.primary} style={styles.playerIcon} />
+          <TextInput
+            style={{ ...styles.inputs, borderWidth: 2, paddingLeft: 40 }}
+            onChangeText={setPlayer1}
+            value={player1}
+            placeholder="Enter player 1 name"
+            placeholderTextColor={isDarkMode ? darkMode.phColor : lightMode.phColor}
+            maxLength={10}
+          />
+        </View>
+        <View style={styles.playerName}>
+          <FontAwesome name="circle-o" size={30} color={darkMode.primary} style={styles.playerIcon} />
+          <TextInput
+            style={{ ...styles.inputs, borderWidth: 2, paddingLeft: 40 }}
+            onChangeText={setPlayer2}
+            value={player2}
+            placeholder="Enter player 2 name"
+            placeholderTextColor={isDarkMode ? darkMode.phColor : lightMode.phColor}
+            maxLength={10}
+          />
+        </View>
       </View>
-      <View style={{ ...styles.inputs, backgroundColor: isDarkMode? darkMode.primary : lightMode.primary }}>
+      <View style={{ ...styles.inputs, backgroundColor: isDarkMode ? darkMode.primary : lightMode.primary }}>
         <TouchableOpacity
           title="Start"
           onPress={handleStartGame}
@@ -72,15 +79,25 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: lightMode.primary
   },
+  playerName: {
+    marginBottom: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  playerIcon: {
+    position: 'absolute',
+    left: 15
+  },
   inputs: {
     height: 60,
-    width: 220,
-    margin: 5,
+    width: 240,
     borderRadius: 10,
     borderColor: lightMode.primary,
     color: lightMode.fgCOlor,
     padding: 15,
+    marginLeft: 5,
     fontSize: 20,
+    alignItems: 'center'
   },
   buttonText: {
     fontSize: 20,
